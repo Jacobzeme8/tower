@@ -45,7 +45,7 @@ class EventsService{
     return event
   }
   async getAllEvents() {
-    const events = await dbContext.Event.find()
+    const events = await dbContext.Event.find().populate('creator')
     return events
   }
 
