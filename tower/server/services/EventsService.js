@@ -5,7 +5,7 @@ class EventsService{
   async cancelEvent(eventId, userId) {
     const event = await this.getEventById(eventId)
     if(event.creatorId != userId)
-    {throw new UnAuthorized('You are not authorized to cancel this event!')}
+    {throw new BadRequest('You are not authorized to cancel this event!')}
     event.isCanceled = true
     await event.save()
     return event
@@ -13,7 +13,7 @@ class EventsService{
   async editEvent(edditedEvent, userId, eventId) {
     const foundEvent = await this.getEventById(eventId)
     if(foundEvent.creatorId != userId){
-      throw new UnAuthorized('You are not authorized to edit this event!')
+      throw new BadRequest('You are not authorized to edit this event!')
     }
 
     if(foundEvent.isCanceled == true){

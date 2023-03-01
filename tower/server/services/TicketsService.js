@@ -24,9 +24,10 @@ class TicketsService{
     return tickets
   }
   async createTicket(ticketData) {
-    const ticket = await dbContext.Ticket.create(ticketData)
     const eventId = ticketData.eventId
     const event = await eventsService.getEventById(eventId)
+    if(event.capacity == 0){ throw new BadRequest('not tickets left! sorry~')}
+    const ticket = await dbContext.Ticket.create(ticketData)
     event.capacity--
     await event.save()
     await ticket.populate('profile event')
