@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+        <img title="To home page" alt="logo" src="../assets/img/cw-logo.png" height="45" />
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -12,19 +12,28 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
+          <button v-if="account.id" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eventModal">Create
+            Event</button>
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
       <Login />
     </div>
   </nav>
+  <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <EventFormModal />
+  </div>
 </template>
 
 <script>
 import Login from './Login.vue'
+import { computed } from "vue";
+import { AppState } from "../AppState";
 export default {
   setup() {
-    return {}
+    return {
+      account: computed(() => AppState.account)
+    }
   },
   components: { Login }
 }

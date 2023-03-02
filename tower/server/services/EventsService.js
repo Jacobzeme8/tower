@@ -41,7 +41,7 @@ class EventsService{
   }
   async createEvent(eventData) {
     const event = await dbContext.Event.create(eventData)
-    event.populate('creator')
+    await event.populate('creator')
     return event
   }
   async getAllEvents() {

@@ -28,7 +28,13 @@ class EventsService{
   async deleteEvent(eventId){
     const res = await api.delete(`api/events/${eventId}`)
     logger.log(res.data)
-    
+
+  }
+  async createEvent(eventData){
+    const res = await api.post('api/events', eventData)
+    const event = new Event(res.data)
+    AppState.events.unshift(event)
+    return event.id
   }
 
 }

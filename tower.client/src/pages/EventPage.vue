@@ -37,7 +37,7 @@
         </div>
       </div>
       <div class="col-9 m-auto py-3">
-        <div class="card d-flex flex-row p-2">
+        <div v-if="tickets[0]" class="card d-flex flex-row p-2">
           <div v-for="ticket in tickets">
             <img class="img-fluid rounded-circle profile-picture ms-2" :title="ticket.profile.name"
               :src="ticket.profile.picture" alt="">
