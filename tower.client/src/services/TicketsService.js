@@ -12,6 +12,12 @@ class TicketsService{
 
   async getTicketsForEvent(eventId){
     const res = await api.get(`api/events/${eventId}/tickets`)
+    // logger.log(res.data)
+    AppState.tickets = res.data
+  }
+
+  async getTicketsForAccount(){
+    const res = await api.get('account/tickets')
     logger.log(res.data)
     AppState.tickets = res.data
   }

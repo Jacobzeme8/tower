@@ -1,25 +1,42 @@
 <template>
-  <div class="about text-center">
-    <h1>Welcome {{ account.name }}</h1>
-    <img class="rounded" :src="account.picture" alt="" />
-    <p>{{ account.email }}</p>
+  <div class="container-fluid">
+    <div class="row">
+      <div v-for="ticket in tickets" class="col-8">
+        <TicketCard :ticket="ticket" :event="ticket.event" :account="ticket.profile" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
+import { logger } from "../utils/Logger"
+import Pop from "../utils/Pop"
+import { ticketsService } from "../services/TicketsService"
 export default {
   setup() {
+
+    async function getTicketsForAccount() {
+      try {
+        await ticketsService.getTicketsForAccount()
+      } catch (error) {
+        logger.error(error)
+        Pop.error(error)
+      }
+    }
+
+    onMounted(() => {
+      getTicketsForAccount()
+    })
+
+
     return {
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      tickets: computed(() => AppState.tickets)
     }
   }
 }
 </script>
 
-<style scoped>
-img {
-  max-width: 100px;
-}
-</style>
+<style scoped></style>
