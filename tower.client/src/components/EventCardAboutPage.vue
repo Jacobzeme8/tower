@@ -4,7 +4,6 @@
       <img :src="event.coverImg" class="img-fluid cover-img mb-3" :title="`go to ${event.name}page`" alt="">
     </router-link>
     <h4>{{ event.name }}</h4>
-    <p>Put together by: {{ event.creator.name }}</p>
     <p>Hosted at: {{ event.startDate }}</p>
   </div>
 </template>
