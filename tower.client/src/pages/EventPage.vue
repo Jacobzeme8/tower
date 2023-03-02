@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div v-if="creator" class="container-fluid">
     <div class="row">
       <div class="col-10 m-auto">
         <img class="img-fluid cover-img mt-4 rounded-top" :src="event.coverImg" alt="">
@@ -7,16 +7,21 @@
       <div class="col-10 m-auto">
         <div class="card d-flex rounded-0 rounded-bottom p-2 align-items-center">
           <span class="d-flex justify-content-between">
-            <h1>{{ event.name }}</h1>
-            <h1>Tickets Left: <span :class="`${event.capacity == 0 ? 'red-text' : ''} `">{{ event.capacity }}</span></h1>
+            <h1>{{ event.name }} Tickets Left:
+              <span :class="`${event.capacity == 0 ? 'red-text' : ''} `">{{ event.capacity }}
+              </span>
+            </h1>
           </span>
-          <h4>Date: {{ event.startDate }} {{ event.location }}</h4>
+          <h4 v-if="!event.isCanceled">Date: {{ event.startDate }} {{ event.location }}</h4>
+          <h2 class="red-text" v-else> CANCELLED</h2>
           <h5 v-if="creator">Put together by: {{ creator.name }}</h5>
           <p>{{ event.description }}</p>
           <div class="d-flex justify-content-end">
-            <!-- TODO make button disabled not just gone -->
-            <button v-if="!boughtTicket" @click="purchaseTicketForEvent()" class="btn btn-success">Purchase
-              Ticket</button>
+            <button :disabled="boughtTicket || event.isCanceled || event.capacity || !account.id <= 0"
+              @click="purchaseTicketForEvent()" class="btn btn-success mx-1">Purchase Ticket</button>
+            <button :disabled="event.isCanceled" class="btn btn-danger mx-1" @click="deleteEvent()"
+              v-if="creator.id == account.id">Cancel
+              Event?</button>
           </div>
         </div>
       </div>
@@ -122,7 +127,15 @@ export default {
         else { return false }
       }),
 
-
+      async deleteEvent() {
+        try {
+          const eventId = route.params.eventId
+          await eventsService.deleteEvent(eventId)
+        } catch (error) {
+          logger.error(error)
+          Pop.error(error)
+        }
+      },
 
       async postComment() {
         try {
