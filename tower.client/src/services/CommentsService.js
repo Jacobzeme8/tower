@@ -13,6 +13,7 @@ class CommentsService{
     commentData.eventId = eventId
     const res = await api.post(`api/comments`, commentData)
     logger.log(res.data)
+    AppState.comments.unshift(res.data)
   }
 
 }
