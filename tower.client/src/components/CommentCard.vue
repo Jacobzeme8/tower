@@ -2,7 +2,7 @@
   <div class="card p-2">
     <div>
       <b class="fs-5">{{ creator.name }}</b>
-      <img class="img-fluid rounded-circle profile-picture ms-2" :src="creator.picture" alt="">
+      <img class="img-fluid rounded-circle profile-picture ms-2" :title="creator.name" :src="creator.picture" alt="">
     </div>
     <p>{{ comment.body }}</p>
     <div v-if="account.id == creator.id" class="d-flex justify-content-end">

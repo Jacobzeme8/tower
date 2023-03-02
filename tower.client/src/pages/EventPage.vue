@@ -5,7 +5,7 @@
         <img class="img-fluid cover-img mt-4 rounded-top" :src="event.coverImg" alt="">
       </div>
       <div class="col-10 m-auto">
-        <div class="card d-flex rounded-0 rounded-bottom p-2">
+        <div class="card d-flex rounded-0 rounded-bottom p-2 align-items-center">
           <span class="d-flex justify-content-between">
             <h1>{{ event.name }}</h1>
             <h1>Tickets Left: <span :class="`${event.capacity == 0 ? 'red-text' : ''} `">{{ event.capacity }}</span></h1>
@@ -14,11 +14,13 @@
           <h5 v-if="creator">Put together by: {{ creator.name }}</h5>
           <p>{{ event.description }}</p>
           <div class="d-flex justify-content-end">
-            <button @click="purchaseTicketForEvent()" class="btn btn-success">Purchase Ticket</button>
+            <!-- TODO make button disabled not just gone -->
+            <button v-if="!boughtTicket" @click="purchaseTicketForEvent()" class="btn btn-success">Purchase
+              Ticket</button>
           </div>
         </div>
       </div>
-      <div class="col-10 m-auto py-3">
+      <div v-if="account.id" class="col-10 m-auto pt-3">
         <div class="card p-3">
           <form @submit.prevent="postComment()">
             <div class="mb-3">
@@ -29,11 +31,12 @@
           </form>
         </div>
       </div>
-      <div class="col-9">
-        <div class="card">
-          <span v-for="ticket in tickets">
-            <img class="img-fluid rounded-circle profile-picture ms-2" src="" alt="">
-          </span>
+      <div class="col-9 m-auto py-3">
+        <div class="card d-flex flex-row p-2">
+          <div v-for="ticket in tickets">
+            <img class="img-fluid rounded-circle profile-picture ms-2" :title="ticket.profile.name"
+              :src="ticket.profile.picture" alt="">
+          </div>
         </div>
       </div>
       <div v-for="comment in comments" class="col-8 m-auto p-2 mb-2">
@@ -58,6 +61,7 @@ export default {
 
     const editable = ref({})
 
+
     const route = useRoute()
     async function getEventById() {
       try {
@@ -69,6 +73,8 @@ export default {
         Pop.error(error)
       }
     }
+
+
 
     async function getEventComments() {
       logger.log('getting commennts for event')
@@ -105,10 +111,17 @@ export default {
 
     return {
       event: computed(() => AppState.activeEvent),
+      account: computed(() => AppState.account),
       creator: computed(() => AppState.activeProfile),
       comments: computed(() => AppState.comments),
       tickets: computed(() => AppState.tickets),
       editable,
+      boughtTicket: computed(() => {
+        let ticket = AppState.tickets.find(t => t.accountId == AppState.account.id)
+        if (ticket) { return true }
+        else { return false }
+      }),
+
 
 
       async postComment() {
@@ -124,6 +137,7 @@ export default {
 
       async purchaseTicketForEvent() {
         try {
+          // boughtTicket = true
           const eventId = route.params.eventId
           await ticketsService.purchaseTicketForEvent(eventId)
         } catch (error) {
