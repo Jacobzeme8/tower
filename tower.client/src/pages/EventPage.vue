@@ -17,14 +17,11 @@
       </div>
       <div class="col-10 m-auto py-3">
         <div class="card p-3">
-          <form>
+          <form @submit.prevent="postComment()">
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-            </div>
-            <div class="mb-3">
-              <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <label for="exampleFormControlTextarea1" class="form-label">Post a Comment</label>
+              <textarea v-model="editable.body" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <button class="btn btn-success mt-2">Post</button>
             </div>
           </form>
         </div>
@@ -44,6 +41,8 @@ import { AppState } from "../AppState";
 import { commentsService } from "../services/CommentsService"
 export default {
   setup() {
+
+    const editable = ref({})
 
     const route = useRoute()
     async function getEventById() {
@@ -78,7 +77,21 @@ export default {
 
     return {
       event: computed(() => AppState.activeEvent),
-      creator: computed(() => AppState.activeProfile)
+      creator: computed(() => AppState.activeProfile),
+      editable,
+
+
+      async postComment() {
+        try {
+          const eventId = route.params.eventId
+          const commentData = editable.value
+          await commentsService.postComment(commentData, eventId)
+        } catch (error) {
+          logger.error(error)
+          Pop.error(error)
+        }
+      }
+
     }
   }
 }
