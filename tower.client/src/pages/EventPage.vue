@@ -17,7 +17,7 @@
           <h5 v-if="creator">Put together by: {{ creator.name }}</h5>
           <p>{{ event.description }}</p>
           <div class="d-flex justify-content-end">
-            <button :disabled="boughtTicket || event.isCanceled || event.capacity || !account.id <= 0"
+            <button :disabled="boughtTicket || event.isCanceled || event.capacity <= 0 || !account.id"
               @click="purchaseTicketForEvent()" class="btn btn-success mx-1">Purchase Ticket</button>
             <button :disabled="event.isCanceled" class="btn btn-danger mx-1" @click="deleteEvent()"
               v-if="creator.id == account.id">Cancel
