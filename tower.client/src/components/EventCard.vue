@@ -1,6 +1,8 @@
 <template>
   <div class="card my-3">
-    <img :src="event.coverImg" class="img-fluid cover-img mb-3" alt="">
+    <router-link :to="{ name: 'Event', params: { eventId: event.id } }">
+      <img :src="event.coverImg" class="img-fluid cover-img mb-3" :title="`go to ${event.name}page`" alt="">
+    </router-link>
     <h4>{{ event.name }}</h4>
     <p>Put together by: {{ event.creator.name }}</p>
     <p>Hosted at: {{ event.startDate }}</p>

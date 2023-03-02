@@ -2,11 +2,11 @@
   <div class="container-fluid">
     <div class="row m-3">
       <div class="col-12 bg-dark rounded d-flex p-2">
-        <button class="m-auto btn btn-success">all</button>
-        <button class="m-auto btn btn-success">concert</button>
-        <button class="m-auto btn btn-success">convention</button>
-        <button class="m-auto btn btn-success">sports</button>
-        <button class="m-auto btn btn-success">digital</button>
+        <button @click="filterEvents('')" class="m-auto btn btn-success">all</button>
+        <button @click="filterEvents('concert')" class="m-auto btn btn-success">concert</button>
+        <button @click="filterEvents('convention')" class="m-auto btn btn-success">convention</button>
+        <button @click="filterEvents('sport')" class="m-auto btn btn-success">sports</button>
+        <button @click="filterEvents('digital')" class="m-auto btn btn-success">digital</button>
       </div>
     </div>
     <div class="row">
@@ -21,11 +21,13 @@
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { eventsService } from "../services/EventsService"
-import { onMounted, computed } from "vue";
+import { onMounted, computed, ref } from "vue";
 import { AppState } from "../AppState";
 
 export default {
   setup() {
+
+    const editable = ref('')
 
     async function getAllEvents() {
       try {
@@ -41,7 +43,21 @@ export default {
     )
 
     return {
-      events: computed(() => AppState.events)
+      editable,
+      events: computed(() => {
+        if (!editable.value) {
+          return AppState.events
+        }
+        else {
+          return AppState.events.filter(e => e.type == editable.value)
+        }
+      }),
+
+      filterEvents(filter) {
+        // AppState.events = []
+        // NOTE come back to find out how to fix ghost images
+        editable.value = filter
+      }
     }
   }
 }

@@ -12,6 +12,7 @@ export class Event{
     this.startDate = new Date(data.startDate).toLocaleString()
     this.type = data.type
     this.creator = data.creator
+    this.capacity = data.capacity
   }
 
 }

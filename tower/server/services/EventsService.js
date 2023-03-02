@@ -33,7 +33,7 @@ class EventsService{
     return foundEvent
   }
   async getEventById(eventId) {
-    const event = await dbContext.Event.findById(eventId)
+    const event = await dbContext.Event.findById(eventId).populate('creator')
     if(!event){
       throw new BadRequest('Bad Event Id!')
     }

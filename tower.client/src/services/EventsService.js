@@ -11,6 +11,13 @@ class EventsService{
     logger.log(AppState.events)
   }
 
+  async getEventById(eventId){
+    const res = await api.get(`api/events/${eventId}`)
+    logger.log(res.data)
+    AppState.activeEvent = new Event(res.data)
+    AppState.activeProfile = res.data.creator
+  }
+
 }
 
 export const eventsService = new EventsService()
