@@ -1,5 +1,5 @@
 <template>
-  <div v-if="event.creator" class="card my-3" :class="`${event.isCanceled == true ? 'border-danger' : ''} `">
+  <div v-if="event.creator" class="card my-3" :class="`${event.isCanceled == true ? 'canceledborder' : ''} `">
     <router-link :to="{ name: 'Event', params: { eventId: event.id } }">
       <img :src="event.coverImg" class="img-fluid cover-img mb-3" :title="`go to ${event.name}page`" alt="">
     </router-link>
@@ -37,5 +37,9 @@ export default {
   height: 30vh;
   width: 100%;
   object-fit: cover;
+}
+
+.canceledborder {
+  border: dashed red;
 }
 </style>
