@@ -131,9 +131,9 @@ export default {
 
       async deleteEvent() {
         try {
-          Pop.confirm(await )
           const eventId = route.params.eventId
-          await eventsService.deleteEvent(eventId)
+          if (await Pop.confirm('Are you sure you want to cancel this event?'))
+            await eventsService.deleteEvent(eventId)
         } catch (error) {
           logger.error(error)
           Pop.error(error)
