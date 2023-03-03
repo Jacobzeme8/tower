@@ -131,6 +131,7 @@ export default {
 
       async deleteEvent() {
         try {
+          Pop.confirm(await )
           const eventId = route.params.eventId
           await eventsService.deleteEvent(eventId)
         } catch (error) {
