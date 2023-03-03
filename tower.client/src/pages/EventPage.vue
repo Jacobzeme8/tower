@@ -7,8 +7,9 @@
       <div class="col-10 m-auto">
         <div class="card d-flex rounded-0 rounded-bottom p-2 align-items-center">
           <span class="d-flex justify-content-between">
-            <h1>{{ event.name }} Tickets Left:
-              <span :class="`${event.capacity == 0 ? 'red-text' : ''} `">{{ event.capacity }}
+            <h1>{{ event.name }}
+              <span v-if="!event.isCanceled" :class="`${event.capacity == 0 ? 'red-text' : ''} `"> Tickets Left: {{
+                event.capacity }}
               </span>
             </h1>
           </span>
