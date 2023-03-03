@@ -19,6 +19,17 @@ main {
   flex-grow: 1;
 }
 
+.color-scheme {
+  background-color: rgb(130, 24, 24);
+  color: rgb(253, 177, 36);
+}
+
+.sticky-top {
+  position: sticky;
+  top: 0px;
+}
+
+
 a {
   text-decoration: none;
 }

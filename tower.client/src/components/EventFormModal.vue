@@ -26,9 +26,9 @@
               placeholder="location ">
           </div>
           <div class="mb-3">
-            <label for="startDate " class="form-label">Start Date and Time</label>
-            <input v-model="editable.startDate" required type="datetime-local" class="form-control" id="startDate "
-              placeholder="startDate">
+            <label for="startDate" class="form-label">Start Date and Time</label>
+            <input :min="minDate" v-model="editable.startDate" required type="datetime-local" class="form-control"
+              id="startDate " placeholder="startDate">
           </div>
           <div class="mb-3">
             <label for="type " class="form-label">type</label>
@@ -56,7 +56,7 @@
 
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { router } from "../router";
 import { eventsService } from "../services/EventsService";
 import { logger } from "../utils/Logger";
@@ -66,9 +66,14 @@ export default {
   setup() {
 
     const editable = ref({})
+    const date = new Date()
+    const minDate = date.toISOString().split('.')[0]
+
 
     return {
       editable,
+      minDate,
+      date,
       async createEvent() {
         try {
           const eventData = editable.value
@@ -78,7 +83,8 @@ export default {
           logger.error(error)
           Pop.error(error)
         }
-      }
+      },
+
     }
   }
 }

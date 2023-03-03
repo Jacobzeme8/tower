@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
-    <div class="row m-3">
-      <div class="col-12 bg-dark rounded d-flex p-2">
+    <div class="row m-3 sticky-top">
+      <div class="col-12 color-scheme rounded d-flex p-2 ">
         <button @click="filterEvents('')" class="m-auto btn btn-success">all</button>
         <button @click="filterEvents('concert')" class="m-auto btn btn-success">concert</button>
         <button @click="filterEvents('convention')" class="m-auto btn btn-success">convention</button>

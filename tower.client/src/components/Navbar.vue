@@ -1,24 +1,29 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <nav class="navbar navbar-expand navbar-dark color-scheme px-3 d-flex">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img title="To home page" alt="logo" src="../assets/img/cw-logo.png" height="45" />
+        <h1 class=" lobster color-scheme" title="Tower Home Page">The Tower</h1>
       </div>
     </router-link>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <button v-if="account.id" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eventModal">Create
-            Event</button>
-        </li>
-      </ul>
-      <!-- LOGIN COMPONENT HERE -->
-      <Login />
-    </div>
+    </button> -->
+    <!-- <div class="collapse navbar-collapse" id="navbarText"> -->
+    <ul class="navbar-nav me-auto">
+      <li>
+        <Login />
+      </li>
+      <button v-if="account.id" class="btn btn-success mx-2" data-bs-toggle="modal" data-bs-target="#eventModal">Create
+        Event</button>
+      <li>
+      </li>
+    </ul>
+    <!-- LOGIN COMPONENT HERE -->
+    <!-- </div> -->
   </nav>
   <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <EventFormModal />
@@ -44,9 +49,15 @@ a:hover {
   text-decoration: none;
 }
 
+.lobster {
+  font-family: 'lobster';
+}
+
 .nav-link {
   text-transform: uppercase;
 }
+
+
 
 .navbar-nav .router-link-exact-active {
   border-bottom: 2px solid var(--bs-success);
