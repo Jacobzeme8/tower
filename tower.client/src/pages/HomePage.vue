@@ -1,12 +1,13 @@
 <template>
   <div class="container-fluid">
-    <div class="row m-3 sticky-top">
+    <div class="row m-3 mt-5 sticky-top">
       <div class="col-12 color-scheme rounded d-flex p-2 ">
-        <button @click="filterEvents('')" class="m-auto btn btn-success">all</button>
-        <button @click="filterEvents('concert')" class="m-auto btn btn-success">concert</button>
-        <button @click="filterEvents('convention')" class="m-auto btn btn-success">convention</button>
-        <button @click="filterEvents('sport')" class="m-auto btn btn-success">sports</button>
-        <button @click="filterEvents('digital')" class="m-auto btn btn-success">digital</button>
+        <button @click="filterEvents('')" class="color-scheme-reverse m-auto btn border-warning">all</button>
+        <button @click="filterEvents('concert')" class=" color-scheme-reverse m-auto btn border-warning">concert</button>
+        <button @click="filterEvents('convention')"
+          class="color-scheme-reverse m-auto btn border-warning">convention</button>
+        <button @click="filterEvents('sport')" class="color-scheme-reverse m-auto btn border-warning">sports</button>
+        <button @click="filterEvents('digital')" class="color-scheme-reverse m-auto btn border-warning">digital</button>
       </div>
     </div>
     <div class="row">

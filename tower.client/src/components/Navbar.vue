@@ -17,7 +17,8 @@
       <li>
         <Login />
       </li>
-      <button v-if="account.id" class="btn btn-success mx-2" data-bs-toggle="modal" data-bs-target="#eventModal">Create
+      <button v-if="account.id" class="color-scheme-reverse m-auto btn border-warning mx-2" data-bs-toggle="modal"
+        data-bs-target="#eventModal">Create
         Event</button>
       <li>
       </li>

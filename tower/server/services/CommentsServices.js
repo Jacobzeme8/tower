@@ -12,12 +12,12 @@ class CommentsServices{
     return deletedComment
   }
   async getEventComments(eventId) {
-    const comments = await dbContext.Comment.find({eventId}).populate('creator')
+    const comments = await dbContext.Comment.find({eventId}).populate('creator', 'name')
     return comments
   }
   async getComments(commentData) {
     const comment = await dbContext.Comment.create(commentData)
-    await comment.populate('creator')
+    await comment.populate('creator', 'name')
     return comment
   }
 

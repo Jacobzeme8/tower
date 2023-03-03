@@ -9,7 +9,7 @@ class EventsService{
   async getAllEvents(){
     const res = await api.get('api/events')
     AppState.events = res.data.map(e => new Event(e))
-    logger.log(AppState.events)
+    // logger.log(AppState.events)
   }
 
   async getEventById(eventId){
@@ -20,9 +20,12 @@ class EventsService{
   }
 
   async getMyEvents(){
-    await ticketsService.getTicketsForAccount()
-    AppState.events = AppState.tickets.map(t => new Event(t.event))
-    logger.log(AppState.events)
+    await this.getAllEvents()
+    logger.log('appsate events', AppState.events)
+    const myEvents = AppState.events.filter(e => e.creatorId == AppState.account.id)
+    logger.log("account", AppState.account)
+    logger.log('my events', myEvents)
+
   }
 
   async deleteEvent(eventId){

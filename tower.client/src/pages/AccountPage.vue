@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watchEffect } from 'vue'
 import { AppState } from '../AppState'
 import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
@@ -49,7 +49,13 @@ export default {
 
     onMounted(() => {
       getTicketsForAccount()
-      getMyEvents()
+
+    })
+
+    watchEffect(() => {
+      if (AppState.account) {
+        getMyEvents()
+      }
     })
 
 

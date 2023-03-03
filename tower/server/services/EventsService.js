@@ -33,7 +33,7 @@ class EventsService{
     return foundEvent
   }
   async getEventById(eventId) {
-    const event = await dbContext.Event.findById(eventId).populate('creator')
+    const event = await dbContext.Event.findById(eventId).populate('creator', 'name')
     if(!event){
       throw new BadRequest('Bad Event Id!')
     }
@@ -41,11 +41,11 @@ class EventsService{
   }
   async createEvent(eventData) {
     const event = await dbContext.Event.create(eventData)
-    await event.populate('creator')
+    await event.populate('creator', 'name')
     return event
   }
   async getAllEvents() {
-    const events = await dbContext.Event.find().populate('creator')
+    const events = await dbContext.Event.find().populate('creator', 'name')
     return events
   }
 

@@ -18,13 +18,13 @@ class TicketsService{
 
   async getTicketsForAccount(){
     const res = await api.get('account/tickets')
-    logger.log(res.data)
+    // logger.log(res.data)
     AppState.tickets = res.data
   }
 
   async deleteTicket(ticketId){
     const res = await api.delete(`api/tickets/${ticketId}`)
-    logger.log(res.data)
+    // logger.log(res.data)
     const index = AppState.tickets.findIndex(t => t.id == ticketId)
     AppState.tickets.splice(index, 1)
   }
