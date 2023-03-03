@@ -15,6 +15,7 @@
           <h4 v-if="!event.isCanceled">Date: {{ event.startDate }} {{ event.location }}</h4>
           <h2 class="red-text" v-else> CANCELLED</h2>
           <h5 v-if="creator">Put together by: {{ creator.name }}</h5>
+          <h5>Type of event: {{ event.type }}</h5>
           <p>{{ event.description }}</p>
           <div class="d-flex justify-content-end">
             <button :disabled="boughtTicket || event.isCanceled || event.capacity <= 0 || !account.id"

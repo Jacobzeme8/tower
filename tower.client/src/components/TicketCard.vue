@@ -2,7 +2,9 @@
   <div class="card">
     <div class="row">
       <div class="col-4">
-        <img class=" coverImg img-fluid" :src="event.coverImg" alt="">
+        <router-link :to="{ name: 'Event', params: { eventId: event.id } }">
+          <img :title="`${event.name} detailes page`" class=" coverImg img-fluid selectable" :src="event.coverImg" alt="">
+        </router-link>
       </div>
       <div class="col-8">
         <h2>{{ event.name }}</h2>
