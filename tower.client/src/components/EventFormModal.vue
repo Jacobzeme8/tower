@@ -27,7 +27,7 @@
           </div>
           <div class="mb-3">
             <label for="startDate" class="form-label">Start Date and Time</label>
-            <input :min="newminDate" v-model="editable.startDate" required type="datetime-local" class="form-control"
+            <input :min="newMinDate" v-model="editable.startDate" required type="datetime-local" class="form-control"
               id="startDate " placeholder="startDate">
           </div>
           <div class="mb-3">
@@ -79,7 +79,7 @@ export default {
 
     return {
       editable,
-      newminDate,
+      newMinDate,
       date,
       async createEvent() {
         try {
