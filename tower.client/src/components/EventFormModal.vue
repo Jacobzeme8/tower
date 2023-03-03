@@ -27,7 +27,7 @@
           </div>
           <div class="mb-3">
             <label for="startDate" class="form-label">Start Date and Time</label>
-            <input :min="minDate" v-model="editable.startDate" required type="datetime-local" class="form-control"
+            <input :min="newminDate" v-model="editable.startDate" required type="datetime-local" class="form-control"
               id="startDate " placeholder="startDate">
           </div>
           <div class="mb-3">
@@ -67,12 +67,19 @@ export default {
 
     const editable = ref({})
     const date = new Date()
-    const minDate = date.toISOString().split('.')[0]
+    const firstDate = date.toISOString().split('.')[0]
+    const minDate = firstDate.split(':')
+    minDate.splice(2, 1)
+    const newminDate = minDate.join(':')
+
+    onMounted(() => {
+      logger.log(newminDate)
+    })
 
 
     return {
       editable,
-      minDate,
+      newminDate,
       date,
       async createEvent() {
         try {

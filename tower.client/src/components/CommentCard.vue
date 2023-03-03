@@ -1,5 +1,5 @@
 <template>
-  <div class="card p-2">
+  <div v-if="creator.id" class="card p-2">
     <div>
       <b class="fs-5">{{ creator.name }}</b>
       <img class="img-fluid rounded-circle profile-picture ms-2" :title="creator.name" :src="creator.picture" alt="">
