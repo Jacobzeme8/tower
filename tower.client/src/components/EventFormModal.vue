@@ -70,10 +70,10 @@ export default {
     const firstDate = date.toISOString().split('.')[0]
     const minDate = firstDate.split(':')
     minDate.splice(2, 1)
-    const newminDate = minDate.join(':')
+    const newMinDate = minDate.join(':')
 
     onMounted(() => {
-      logger.log(newminDate)
+      logger.log(newMinDate)
     })
 
 
