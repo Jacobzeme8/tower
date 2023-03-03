@@ -7,7 +7,7 @@
     <p>{{ comment.body }}</p>
     <div v-if="account.id == creator.id" class="d-flex justify-content-end">
       <!-- TODO make delete button work -->
-      <button class="btn btn-danger">Delete Comment</button>
+      <button @click="deleteComment(comment.id)" class="btn btn-danger">Delete Comment</button>
     </div>
   </div>
 </template>
@@ -16,6 +16,9 @@
 <script>
 import { computed } from "vue";
 import { AppState } from "../AppState";
+import { commentsService } from "../services/CommentsService";
+import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
 
 export default {
 
@@ -33,7 +36,18 @@ export default {
 
   setup() {
     return {
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+
+      async deleteComment(commentId) {
+        try {
+          await commentsService.deleteComment(commentId)
+        } catch (error) {
+          logger.error(error)
+          Pop.errorf(error)
+        }
+      }
+
+
     }
   }
 }
