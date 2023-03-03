@@ -30,7 +30,7 @@ class EventsService{
 
   async deleteEvent(eventId){
     const res = await api.delete(`api/events/${eventId}`)
-    logger.log(res.data)
+    // logger.log(res.data)
 
   }
   async createEvent(eventData){

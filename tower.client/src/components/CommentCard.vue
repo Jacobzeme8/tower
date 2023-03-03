@@ -40,7 +40,8 @@ export default {
 
       async deleteComment(commentId) {
         try {
-          await commentsService.deleteComment(commentId)
+          if (await Pop.confirm("delete Comments?", "its gone forever!"))
+            await commentsService.deleteComment(commentId)
         } catch (error) {
           logger.error(error)
           Pop.errorf(error)
